@@ -13,8 +13,6 @@ Command line tool to organize and take notes for papers.
 
 ## Usage
 
-The tool can be only used in the directory where you have the `ledger` file! 
-
 For taking notes of arxiv papers, simply copy the arxiv id of said paper, e.g. `1205.1735v4` and run the command 
 `newpaper Name-of-folder 1205.1735v4` 
 This will create a new directory with the name `Name-of-folder` and download the paper in that folder.
@@ -24,4 +22,5 @@ the title and subtitle with the title of the paper and the arxiv link respective
 For general pdfs, the command works similarly with the only difference being that you should replace 
 the arxiv id with the link to the pdf.
 
-
+Using the command in the directory where you have the `ledger` file will record the id into the `ledger` and 
+future uses in said directory will check whether or not the id is already in the `ledger`.
