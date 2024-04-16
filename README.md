@@ -8,12 +8,12 @@ Command line tool to organize and take notes for papers.
 2. Add the path of `newpaper` to your `PATH` environment variable.
    e.g. add `export PATH="path-to-folder/newpaper:$PATH"` to your `.zshrc` file.
 3. Make a new directory for where you want to store your papers and notes.
-4. Make a file in said folder called `ledger` (with no extension). 
+4. (Optional) Make a file in said folder called `ledger` (with no extension). 
    This will keep track of the papers which are already stored.
 
 ## Usage
 
-The tool can be only used in the directory where you have the `ledger` file! 
+Go to the directory for which you want to store your papers and notes.
 
 For taking notes of arxiv papers, simply copy the arxiv id of said paper, e.g. `1205.1735v4` and run the command 
 `newpaper Name-of-folder 1205.1735v4` 
@@ -24,4 +24,5 @@ the title and subtitle with the title of the paper and the arxiv link respective
 For general pdfs, the command works similarly with the only difference being that you should replace 
 the arxiv id with the link to the pdf.
 
-
+Using the command in the directory where you have the `ledger` file will record the id into the `ledger` and 
+future uses in said directory will check whether or not the id is already in the `ledger`.
