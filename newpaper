@@ -1,0 +1,66 @@
+#!/usr/bin/python3
+
+import os
+import sys
+import urllib.request
+import progressbar
+import pdfrw
+
+pbar = None
+
+def show_progress(block_num, block_size, total_size):
+    global pbar
+    if pbar is None:
+        pbar = progressbar.ProgressBar(maxval=total_size)
+        pbar.start()
+
+    downloaded = block_num * block_size
+    if downloaded < total_size:
+        pbar.update(downloaded)
+    else:
+        pbar.finish()
+        pbar = None
+
+def mkproject_skeleton(title, id, template="default"):
+
+    relative_path = os.path.dirname(__file__)
+    template_path = relative_path + "/textemplate/" + template + ".tex"
+
+    if os.path.exists("./ledger"):
+        with open("./ledger", "r") as f:
+            ledger = f.readlines()
+        if id in ledger:
+            raise ValueError("Paper already exists in ledger")
+        else:
+            ledger.append(id)
+            with open("./ledger", "w") as f:
+                f.write("\n".join(ledger))
+
+    os.makedirs(title)
+    project_path = "./" + title +"/"
+    os.system("cp " + template_path + " " + project_path)
+    os.system("mv " + project_path + "/default.tex " + project_path + "/" + title + "rm.tex")
+
+    with open(project_path + title + "rm.tex", "r") as f:
+        file = f.read()
+
+    if "http" in id or "/" in id:
+        urllib.request.urlretrieve(id, project_path + title + ".pdf", show_progress)
+        file = file.replace("Title goes here", "Notes for " + pdfrw.PdfReader(project_path + title + ".pdf").Info.Title.strip("()"))
+        link = id.replace("https://", "").replace("http://", "").replace(".pdf", "")
+        file = file.replace("Subtitle goes here", "Based on: \href{" + link + "}{" + link + "}")
+    else:
+        pdfsource = "https://arxiv.org/pdf/" + id
+        urllib.request.urlretrieve(pdfsource, project_path + title + ".pdf", show_progress)
+        file = file.replace("Title goes here", "Notes for " + pdfrw.PdfReader(project_path + title + ".pdf").Info.Title.strip("()"))
+        link = "arxiv.org/abs/" + id
+        file = file.replace("Subtitle goes here", "Based on: \href{" + link + "}{" + link + "}")
+    
+    with open(project_path + title + "rm.tex", "w") as f:
+        f.write(file)
+
+    os.system("open " + project_path + title + ".pdf && cd " + project_path + " && code .")
+
+if __name__ == "__main__":
+    args = sys.argv
+    mkproject_skeleton(args[1], args[2])
