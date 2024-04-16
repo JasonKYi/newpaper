@@ -8,7 +8,7 @@ Command line tool to organize and take notes for papers.
 2. Add the path of `newpaper` to your `PATH` environment variable.
    e.g. add `export PATH="path-to-folder/newpaper:$PATH"` to your `.zshrc` file.
 3. Make a new directory for where you want to store your papers and notes.
-4. Make a file in said folder called `ledger` (with no extension). 
+4. (Optional) Make a file in said folder called `ledger` (with no extension). 
    This will keep track of the papers which are already stored.
 
 ## Usage
