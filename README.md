@@ -13,6 +13,8 @@ Command line tool to organize and take notes for papers.
 
 ## Usage
 
+Go to the directory for which you want to store your papers and notes.
+
 For taking notes of arxiv papers, simply copy the arxiv id of said paper, e.g. `1205.1735v4` and run the command 
 `newpaper Name-of-folder 1205.1735v4` 
 This will create a new directory with the name `Name-of-folder` and download the paper in that folder.
