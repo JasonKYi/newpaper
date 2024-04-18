@@ -61,6 +61,21 @@ def mkproject_skeleton(title, id, template="default"):
 
     os.system("open " + project_path + title + ".pdf && cd " + project_path + " && code .")
 
+def new_project(title, template="default"):
+
+    relative_path = os.path.dirname(__file__)
+    template_path = relative_path + "/textemplate/" + template + ".tex"
+    project_path = "./" + title +"/"
+
+    os.makedirs(title)
+    os.system("cp " + template_path + " " + project_path)
+    os.system("mv " + project_path + "/default.tex " + project_path + "/" + title + ".tex")
+    os.system("cd " + project_path + "&& xelatex " + title + ".tex && open "  
+                    + title + ".pdf && code .")
+
 if __name__ == "__main__":
     args = sys.argv
-    mkproject_skeleton(args[1], args[2])
+    if len(args) == 2:
+        new_project(args[1])
+    else:
+        mkproject_skeleton(args[1], args[2])
